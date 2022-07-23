@@ -33,7 +33,3 @@ class ArticleSerializer(serializers.ModelSerializer):
         model = Article
         # fields = ('id', 'vum', 'content', 'title')
         fields = '__all__'
-
-
-class CategorySerializer(serializers.ModelSerializer):
-    pass
