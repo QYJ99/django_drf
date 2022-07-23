@@ -8,7 +8,6 @@ from django.views.decorators.csrf import csrf_exempt
 
 
 
-
 class JSONResponse(HttpResponse):
 
     def __init__(self, data, **kwargs):
@@ -56,6 +55,7 @@ def article_detail(request, pk):
             ser.save()
             return JSONResponse(ser.data, status=201)
         return JSONResponse(ser.errors, status=400)
+
     elif request.method == 'PATCH':
         data = JSONParser().parse(request)
         ser = ArticleSerializer(instance=art, data=data, partial=True, context={'request': request})
@@ -63,6 +63,7 @@ def article_detail(request, pk):
             ser.save()
             return JSONResponse(ser.data, status=201)
         return JSONResponse(ser.errors, status=400)
+
     elif request.method == 'DELETE':
         art.delete()
         return HttpResponse(status=204)
