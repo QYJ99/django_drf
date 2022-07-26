@@ -4,7 +4,7 @@
 # @FileName: serializers.py
 
 from rest_framework import serializers
-from .models import Article
+from .models import Article,Category
 
 
 
@@ -28,8 +28,33 @@ from .models import Article
 
 
 # 模型序列化
+# class ArticleSerializer(serializers.ModelSerializer):
+#     class Meta:
+#         model = Article
+#         # fields = ('id', 'vum', 'content', 'title')
+#         fields = '__all__'
+#
+#
+# class CategorySerializer(serializers.ModelSerializer):
+#     class Meta:
+#         model = Category
+#         fields = '__all__'
+
+
+# PrimaryKeyRelatedField
 class ArticleSerializer(serializers.ModelSerializer):
+    category = serializers.StringRelatedField()
     class Meta:
         model = Article
         # fields = ('id', 'vum', 'content', 'title')
         fields = '__all__'
+
+
+
+class CategorySerializer(serializers.ModelSerializer):
+    articles = serializers.StringRelatedField(many=True)
+    class Meta:
+        model = Category
+        # fields = '__all__'
+        fields = ('id','name','articles')
+
