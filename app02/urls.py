@@ -12,5 +12,7 @@ urlpatterns = [
     path('articles/', views.article_list, name='article-list'),
     path('articles/<int:pk>/', views.article_detail, name='article-detail'),
 
+    path('categorys/', views.category_list, name='category-list'),
+    path('categorys/<int:pk>/', views.category_detail, name='category-detail'),
 
 ]
