@@ -41,20 +41,86 @@ from .models import Article,Category
 #         fields = '__all__'
 
 
+# StringRelatedField
+# class ArticleSerializer(serializers.ModelSerializer):
+#     category = serializers.StringRelatedField()
+#     class Meta:
+#         model = Article
+#         # fields = ('id', 'vum', 'content', 'title')
+#         fields = '__all__'
+#
+#
+# class CategorySerializer(serializers.ModelSerializer):
+#     articles = serializers.StringRelatedField(many=True)
+#     class Meta:
+#         model = Category
+#         # fields = '__all__'
+#         fields = ('id','name','articles')
+
 # PrimaryKeyRelatedField
+# class ArticleSerializer(serializers.ModelSerializer):
+#     category = serializers.PrimaryKeyRelatedField(read_only=True)
+#     class Meta:
+#         model = Article
+#         # fields = ('id', 'vum', 'content', 'title')
+#         fields = '__all__'
+#
+#
+# class CategorySerializer(serializers.ModelSerializer):
+#     articles = serializers.PrimaryKeyRelatedField(read_only=True,many=True)
+#     class Meta:
+#         model = Category
+#         # fields = '__all__'
+#         fields = ('id','name','articles')
+
+
+# HyperlinkedRelatedField
+# class ArticleSerializer(serializers.ModelSerializer):
+#     category = serializers.HyperlinkedRelatedField(
+#         view_name='app02:category-detail',
+#         read_only=True,
+#         # lookup_field='id'
+#     )
+#     class Meta:
+#         model = Article
+#         # fields = ('id', 'vum', 'content', 'title')
+#         fields = '__all__'
+#
+#
+# class CategorySerializer(serializers.ModelSerializer):
+#     articles = serializers.HyperlinkedRelatedField(
+#         view_name='app02:article-detail',
+#         read_only=True,
+#         # lookup_field='id'
+#         many=True,
+#     )
+#     class Meta:
+#         model = Category
+#         # fields = '__all__'
+#         fields = ('id','name','articles')
+
+# SlugRelatedField
 class ArticleSerializer(serializers.ModelSerializer):
-    category = serializers.StringRelatedField()
+    category = serializers.SlugRelatedField(
+        read_only=True,
+        slug_field='name' # 返回的值
+    )
     class Meta:
         model = Article
         # fields = ('id', 'vum', 'content', 'title')
         fields = '__all__'
 
 
-
 class CategorySerializer(serializers.ModelSerializer):
-    articles = serializers.StringRelatedField(many=True)
+    articles = serializers.SlugRelatedField(
+        read_only=True,
+        slug_field='content',  # 返回的值
+        many=True,
+    )
     class Meta:
         model = Category
         # fields = '__all__'
         fields = ('id','name','articles')
+
+
 

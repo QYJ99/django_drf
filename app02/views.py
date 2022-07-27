@@ -83,7 +83,7 @@ def category_list(request):
 
 @csrf_exempt
 def category_detail(request, pk):
-    art = Category.objects.get(pk=pk)
+    # art = Category.objects.get(pk=pk)
     try:
         art = Category.objects.get(pk=pk)
         print(art)
