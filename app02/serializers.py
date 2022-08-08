@@ -183,27 +183,62 @@ from .models import Article,Category
 #         fields = '__all__'
 
 # depth
+# class ArticleSerializer(serializers.ModelSerializer):
+#     class Meta:
+#         model = Article
+#         fields = '__all__'
+#         depth = 2
+#
+#
+# class CategorySerializer(serializers.ModelSerializer):
+#     articles = ArticleSerializer(many=True)
+#
+#     class Meta:
+#         model = Category
+#         fields = '__all__'
+#         # fields = ('id', 'name', 'articles')
+#         depth = 2
+
+# SerializerMethodField
+# class ArticleSerializer(serializers.ModelSerializer):
+#     class Meta:
+#         model = Article
+#         fields = '__all__'
+#
+#
+# class CategorySerializer(serializers.ModelSerializer):
+#     count = serializers.SerializerMethodField()
+#
+#     class Meta:
+#         model = Category
+#         # fields = '__all__'
+#         fields = ('id', 'name', 'articles','count')
+#
+#     def get_count(self,obj):
+#         return obj.articles.count()
+
+# source
+class MyCharField(serializers.CharField):
+    def to_representation(self, value):
+        data_list = []
+        for val in value:
+            data_list.append({"title":val.title,"content":val.content})
+        return data_list
+
+
 class ArticleSerializer(serializers.ModelSerializer):
+    category = serializers.CharField(source='category.name')
+
     class Meta:
         model = Article
         fields = '__all__'
-        depth = 2
 
 
 class CategorySerializer(serializers.ModelSerializer):
-    articles = ArticleSerializer(many=True)
+    arts = MyCharField(source='articles.all')
 
     class Meta:
         model = Category
-        fields = '__all__'
-        # fields = ('id', 'name', 'articles')
-        depth = 2
-
-
-
-
-
-
-
-
+        # fields = '__all__'
+        fields = ('id', 'name', 'arts')
 
